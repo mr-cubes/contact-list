@@ -6,15 +6,22 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  static final ValueNotifier<ThemeMode> themeNotifier =
+      ValueNotifier(ThemeMode.light);
   const MyApp({super.key});
 
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'N Contacts',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: ListPage());
+    return ValueListenableBuilder<ThemeMode>(
+        valueListenable: themeNotifier,
+        builder: (_, ThemeMode currentMode, __) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'N Contacts',
+            theme: ThemeData(primarySwatch: Colors.indigo),
+            darkTheme: ThemeData.dark(),
+            themeMode: currentMode,
+            home: const ListPage(),
+          );
+        });
   }
 }
