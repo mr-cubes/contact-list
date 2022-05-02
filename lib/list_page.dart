@@ -1,3 +1,5 @@
+import 'package:contact_list/add_page.dart';
+import 'package:contact_list/contact.dart';
 import 'package:contact_list/main.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +11,8 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
+  void addToList(Contact contact) {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +32,33 @@ class _ListPageState extends State<ListPage> {
                         : ThemeMode.light;
               });
             })
+      ]),
+      body: Stack(children: [
+        Align(
+          alignment: Alignment.bottomRight,
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(28)),
+              child: IconButton(
+                  icon: const Icon(Icons.person_add),
+                  tooltip: "Add contact",
+                  color: Theme.of(context).primaryIconTheme.color,
+                  onPressed: () {
+                    setState(() {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (ctx) => AddPage(onSubmit: addToList)));
+                    });
+                  }),
+            ),
+          ),
+        )
       ]),
     );
   }
