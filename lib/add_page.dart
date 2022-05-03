@@ -44,7 +44,7 @@ class _AddPageState extends State<AddPage> {
                       child: Expanded(
                         child: CircleAvatar(
                             minRadius: 80,
-                            maxRadius: 128,
+                            maxRadius: 110,
                             foregroundImage: (avatarFile == null)
                                 ? null
                                 : FileImage(avatarFile!)),
@@ -94,6 +94,15 @@ class _AddPageState extends State<AddPage> {
                             borderSide: const BorderSide(width: 1),
                             borderRadius: BorderRadius.circular(8))),
                   ),
+                ),
+                const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: SizedBox(
+                      height: 40,
+                      width: 120,
+                      child: ElevatedButton(
+                          onPressed: ok, child: const Text("OK"))),
                 )
               ]),
             ),
@@ -110,5 +119,10 @@ class _AddPageState extends State<AddPage> {
     setState(() {
       avatarFile = File(platformFile.files.single.path!);
     });
+  }
+
+  void ok() {
+    widget.onSubmit(Contact(ctrlName.text, ctrlEmail.text, ctrlMobileNo.text,
+        avatarFile == null ? null : Image.file(avatarFile!)));
   }
 }
