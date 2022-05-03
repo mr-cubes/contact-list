@@ -18,6 +18,7 @@ class _AddPageState extends State<AddPage> {
   late TextEditingController ctrlName;
   late TextEditingController ctrlEmail;
   late TextEditingController ctrlMobileNo;
+  late GlobalKey<FormState> formKey;
 
   @override
   void initState() {
@@ -25,6 +26,7 @@ class _AddPageState extends State<AddPage> {
     ctrlName = TextEditingController();
     ctrlEmail = TextEditingController();
     ctrlMobileNo = TextEditingController();
+    formKey = GlobalKey<FormState>();
   }
 
   @override
@@ -36,75 +38,78 @@ class _AddPageState extends State<AddPage> {
           child: Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 400),
-              child: Column(children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: GestureDetector(
-                      onTap: setAvatar,
-                      child: Expanded(
-                        child: CircleAvatar(
-                            minRadius: 80,
-                            maxRadius: 110,
-                            foregroundImage: (avatarFile == null)
-                                ? null
-                                : FileImage(avatarFile!)),
-                      )),
-                ),
-                const SizedBox(height: 25),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 6),
-                  child: TextFormField(
-                    controller: ctrlName,
-                    maxLength: 24,
-                    decoration: InputDecoration(
-                        filled: true,
-                        hintText: "Enter name",
-                        prefixIcon: const Icon(Icons.person),
-                        border: OutlineInputBorder(
-                            borderSide: const BorderSide(width: 1),
-                            borderRadius: BorderRadius.circular(8))),
+              child: Form(
+                key: formKey,
+                child: Column(children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: GestureDetector(
+                        onTap: setAvatar,
+                        child: Expanded(
+                          child: CircleAvatar(
+                              minRadius: 80,
+                              maxRadius: 110,
+                              foregroundImage: (avatarFile == null)
+                                  ? null
+                                  : FileImage(avatarFile!)),
+                        )),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 6),
-                  child: TextFormField(
-                    controller: ctrlEmail,
-                    maxLength: 24,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                        filled: true,
-                        hintText: "Enter email",
-                        prefixIcon: const Icon(Icons.email),
-                        border: OutlineInputBorder(
-                            borderSide: const BorderSide(width: 1),
-                            borderRadius: BorderRadius.circular(8))),
+                  const SizedBox(height: 25),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: TextFormField(
+                      controller: ctrlName,
+                      maxLength: 24,
+                      decoration: InputDecoration(
+                          filled: true,
+                          hintText: "Enter name",
+                          prefixIcon: const Icon(Icons.person),
+                          border: OutlineInputBorder(
+                              borderSide: const BorderSide(width: 1),
+                              borderRadius: BorderRadius.circular(8))),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 6),
-                  child: TextFormField(
-                    controller: ctrlMobileNo,
-                    maxLength: 24,
-                    keyboardType: TextInputType.phone,
-                    decoration: InputDecoration(
-                        filled: true,
-                        hintText: "Enter mobile number",
-                        prefixIcon: const Icon(Icons.smartphone),
-                        border: OutlineInputBorder(
-                            borderSide: const BorderSide(width: 1),
-                            borderRadius: BorderRadius.circular(8))),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: TextFormField(
+                      controller: ctrlEmail,
+                      maxLength: 24,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                          filled: true,
+                          hintText: "Enter email",
+                          prefixIcon: const Icon(Icons.email),
+                          border: OutlineInputBorder(
+                              borderSide: const BorderSide(width: 1),
+                              borderRadius: BorderRadius.circular(8))),
+                    ),
                   ),
-                ),
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: SizedBox(
-                      height: 40,
-                      width: 120,
-                      child: ElevatedButton(
-                          onPressed: ok, child: const Text("OK"))),
-                )
-              ]),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: TextFormField(
+                      controller: ctrlMobileNo,
+                      maxLength: 24,
+                      keyboardType: TextInputType.phone,
+                      decoration: InputDecoration(
+                          filled: true,
+                          hintText: "Enter mobile number",
+                          prefixIcon: const Icon(Icons.smartphone),
+                          border: OutlineInputBorder(
+                              borderSide: const BorderSide(width: 1),
+                              borderRadius: BorderRadius.circular(8))),
+                    ),
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: SizedBox(
+                        height: 40,
+                        width: 120,
+                        child: ElevatedButton(
+                            onPressed: ok, child: const Text("OK"))),
+                  )
+                ]),
+              ),
             ),
           )),
     );
@@ -122,6 +127,9 @@ class _AddPageState extends State<AddPage> {
   }
 
   void ok() {
+    if (formKey.currentState == null) return;
+    if (!(formKey.currentState!.validate())) return;
+
     widget.onSubmit(Contact(ctrlName.text, ctrlEmail.text, ctrlMobileNo.text,
         avatarFile == null ? null : Image.file(avatarFile!)));
   }
