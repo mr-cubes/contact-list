@@ -15,6 +15,17 @@ class AddPage extends StatefulWidget {
 
 class _AddPageState extends State<AddPage> {
   File? avatarFile;
+  late TextEditingController ctrlName;
+  late TextEditingController ctrlEmail;
+  late TextEditingController ctrlMobileNo;
+
+  @override
+  void initState() {
+    super.initState();
+    ctrlName = TextEditingController();
+    ctrlEmail = TextEditingController();
+    ctrlMobileNo = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,21 +33,71 @@ class _AddPageState extends State<AddPage> {
       appBar: AppBar(title: const Text("Add Contact")),
       body: Padding(
           padding: const EdgeInsets.all(20),
-          child: Column(children: [
-            Align(
-              alignment: Alignment.center,
-              child: GestureDetector(
-                  onTap: setAvatar,
-                  child: Expanded(
-                    child: CircleAvatar(
-                        minRadius: 80,
-                        maxRadius: 128,
-                        foregroundImage: (avatarFile == null)
-                            ? null
-                            : FileImage(avatarFile!)),
-                  )),
-            )
-          ])),
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 400),
+              child: Column(children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: GestureDetector(
+                      onTap: setAvatar,
+                      child: Expanded(
+                        child: CircleAvatar(
+                            minRadius: 80,
+                            maxRadius: 128,
+                            foregroundImage: (avatarFile == null)
+                                ? null
+                                : FileImage(avatarFile!)),
+                      )),
+                ),
+                const SizedBox(height: 25),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 6),
+                  child: TextFormField(
+                    controller: ctrlName,
+                    maxLength: 24,
+                    decoration: InputDecoration(
+                        filled: true,
+                        hintText: "Enter name",
+                        prefixIcon: const Icon(Icons.person),
+                        border: OutlineInputBorder(
+                            borderSide: const BorderSide(width: 1),
+                            borderRadius: BorderRadius.circular(8))),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 6),
+                  child: TextFormField(
+                    controller: ctrlEmail,
+                    maxLength: 24,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                        filled: true,
+                        hintText: "Enter email",
+                        prefixIcon: const Icon(Icons.email),
+                        border: OutlineInputBorder(
+                            borderSide: const BorderSide(width: 1),
+                            borderRadius: BorderRadius.circular(8))),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 6),
+                  child: TextFormField(
+                    controller: ctrlMobileNo,
+                    maxLength: 24,
+                    keyboardType: TextInputType.phone,
+                    decoration: InputDecoration(
+                        filled: true,
+                        hintText: "Enter mobile number",
+                        prefixIcon: const Icon(Icons.smartphone),
+                        border: OutlineInputBorder(
+                            borderSide: const BorderSide(width: 1),
+                            borderRadius: BorderRadius.circular(8))),
+                  ),
+                )
+              ]),
+            ),
+          )),
     );
   }
 
