@@ -14,6 +14,25 @@ class _AddPageState extends State<AddPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Add Contact")),
+      body: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(children: [
+            Align(
+              alignment: Alignment.center,
+              child: GestureDetector(
+                onTap: setAvatar,
+                child: Container(
+                  width: 96,
+                  height: 96,
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(48)),
+                ),
+              ),
+            )
+          ])),
     );
   }
+
+  void setAvatar() {}
 }
