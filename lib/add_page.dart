@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:contact_list/contact.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AddPage extends StatefulWidget {
   final void Function(Contact contact) onSubmit;
@@ -62,6 +63,7 @@ class _AddPageState extends State<AddPage> {
                       maxLength: 24,
                       decoration: InputDecoration(
                           filled: true,
+                          counterText: "",
                           hintText: "Enter name",
                           prefixIcon: const Icon(Icons.person),
                           border: OutlineInputBorder(
@@ -75,7 +77,18 @@ class _AddPageState extends State<AddPage> {
                       controller: ctrlEmail,
                       maxLength: 24,
                       keyboardType: TextInputType.emailAddress,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == null) return "No value";
+                        if (!RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(value)) {
+                          return "Invalid format";
+                        }
+                        return null;
+                      },
                       decoration: InputDecoration(
+                          counterText: "",
                           filled: true,
                           hintText: "Enter email",
                           prefixIcon: const Icon(Icons.email),
@@ -88,9 +101,22 @@ class _AddPageState extends State<AddPage> {
                     padding: const EdgeInsets.symmetric(vertical: 6),
                     child: TextFormField(
                       controller: ctrlMobileNo,
-                      maxLength: 24,
+                      maxLength: 11,
                       keyboardType: TextInputType.phone,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == null) return "No value";
+                        if (!RegExp(r"^(?:[+0]9)?[0-9]{10}$").hasMatch(value)) {
+                          return "Invalid format";
+                        }
+                        return null;
+                      },
+                      inputFormatters: [
+                        FilteringTextInputFormatter.deny(
+                            RegExp(r"^(?:[+0]9)?[0-9]{10}$")),
+                      ],
                       decoration: InputDecoration(
+                          counterText: "",
                           filled: true,
                           hintText: "Enter mobile number",
                           prefixIcon: const Icon(Icons.smartphone),
