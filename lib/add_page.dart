@@ -1,4 +1,8 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:contact_list/contact.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 class AddPage extends StatefulWidget {
@@ -10,6 +14,8 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
+  File? avatarFile;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,19 +26,28 @@ class _AddPageState extends State<AddPage> {
             Align(
               alignment: Alignment.center,
               child: GestureDetector(
-                onTap: setAvatar,
-                child: Container(
-                  width: 96,
-                  height: 96,
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.circular(48)),
-                ),
-              ),
+                  onTap: setAvatar,
+                  child: Expanded(
+                    child: CircleAvatar(
+                        minRadius: 80,
+                        maxRadius: 128,
+                        foregroundImage: (avatarFile == null)
+                            ? null
+                            : FileImage(avatarFile!)),
+                  )),
             )
           ])),
     );
   }
 
-  void setAvatar() {}
+  Future<void> setAvatar() async {
+    final platformFile =
+        await FilePicker.platform.pickFiles(withReadStream: true);
+
+    if (platformFile == null) return;
+
+    setState(() {
+      avatarFile = File(platformFile.files.single.path!);
+    });
+  }
 }
