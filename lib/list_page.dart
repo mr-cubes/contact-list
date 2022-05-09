@@ -11,12 +11,18 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
-  void addToList(Contact contact) {}
+  List<Contact> contacts = [];
+
+  void addToList(Contact contact) {
+    setState(() {
+      contacts.add(contact);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("N Contacts"), actions: [
+      appBar: AppBar(title: const Text("N Contacts"), actions: [
         IconButton(
             icon: Icon(MyApp.themeNotifier.value == ThemeMode.light
                 ? Icons.dark_mode
