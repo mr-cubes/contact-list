@@ -154,5 +154,6 @@ class _AddPageState extends State<AddPage> {
 
     widget.onSubmit(Contact(ctrlName.text, ctrlEmail.text, ctrlMobileNo.text,
         avatarFile == null ? null : Image.file(avatarFile!)));
+    Navigator.pop(context);
   }
 }
