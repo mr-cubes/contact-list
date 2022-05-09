@@ -1,5 +1,6 @@
 import 'package:contact_list/add_page.dart';
 import 'package:contact_list/contact.dart';
+import 'package:contact_list/contact_widget.dart';
 import 'package:contact_list/main.dart';
 import 'package:flutter/material.dart';
 
@@ -40,6 +41,9 @@ class _ListPageState extends State<ListPage> {
             })
       ]),
       body: Stack(children: [
+        ListView(
+            children: List.from(
+                contacts.map((item) => ContactWidget(contact: item)))),
         Align(
           alignment: Alignment.bottomRight,
           child: Padding(
