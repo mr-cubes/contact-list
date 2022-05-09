@@ -106,7 +106,7 @@ class _AddPageState extends State<AddPage> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (value) {
                         if (value == null) return "No value";
-                        if (!RegExp(r"^(?:[+0]9)?[0-9]{10}$").hasMatch(value)) {
+                        if (!RegExp(r"^(?:[+0]9)?[0-9]{11}$").hasMatch(value)) {
                           return "Invalid format";
                         }
                         return null;
