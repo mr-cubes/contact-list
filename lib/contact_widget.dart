@@ -1,4 +1,5 @@
 import 'package:contact_list/contact.dart';
+import 'package:contact_list/contact_view.dart';
 import 'package:flutter/material.dart';
 
 class ContactWidget extends StatelessWidget {
@@ -10,7 +11,7 @@ class ContactWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: GestureDetector(
-        onTap: pushView,
+        onTap: () => pushView(context),
         child: Container(
           height: 80,
           padding: const EdgeInsets.all(4),
@@ -42,5 +43,8 @@ class ContactWidget extends StatelessWidget {
     );
   }
 
-  void pushView() {}
+  void pushView(BuildContext context) {
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (ctx) => ContactView(contact: contact)));
+  }
 }
