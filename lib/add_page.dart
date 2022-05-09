@@ -111,10 +111,6 @@ class _AddPageState extends State<AddPage> {
                         }
                         return null;
                       },
-                      inputFormatters: [
-                        FilteringTextInputFormatter.deny(
-                            RegExp(r"^(?:[+0]9)?[0-9]{10}$")),
-                      ],
                       decoration: InputDecoration(
                           counterText: "",
                           filled: true,
