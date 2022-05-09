@@ -7,10 +7,40 @@ class ContactWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(children: [
-        Text(contact.name),
-      ]),
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: GestureDetector(
+        onTap: pushView,
+        child: Container(
+          height: 80,
+          padding: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
+              borderRadius: BorderRadius.circular(6),
+              boxShadow: const [
+                BoxShadow(
+                    color: Color(0x40000000),
+                    offset: Offset(3, 3),
+                    blurRadius: 4)
+              ]),
+          child: Row(children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: CircleAvatar(
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withAlpha(200),
+                  foregroundImage:
+                      contact.avatar == null ? null : contact.avatar!.image),
+            ),
+            Text(
+              contact.name,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ]),
+        ),
+      ),
     );
   }
+
+  void pushView() {}
 }
