@@ -5,19 +5,26 @@ import 'package:contact_list/main.dart';
 import 'package:flutter/material.dart';
 
 class ListPage extends StatefulWidget {
-  const ListPage({Key? key}) : super(key: key);
+  final List<Contact> contacts;
+  const ListPage({Key? key, required this.contacts}) : super(key: key);
 
   @override
   State<ListPage> createState() => _ListPageState();
 }
 
 class _ListPageState extends State<ListPage> {
-  List<Contact> contacts = [];
+  late List<Contact> contacts;
 
   void addToList(Contact contact) {
     setState(() {
       contacts.add(contact);
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    contacts = widget.contacts;
   }
 
   @override
