@@ -1,13 +1,14 @@
+import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:contact_list/contact.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:localstorage/localstorage.dart';
 
 class AddPage extends StatefulWidget {
   final void Function(Contact contact) onSubmit;
+
   const AddPage({Key? key, required this.onSubmit}) : super(key: key);
 
   @override
@@ -154,6 +155,22 @@ class _AddPageState extends State<AddPage> {
 
     widget.onSubmit(Contact(ctrlName.text, ctrlEmail.text, ctrlMobileNo.text,
         avatarFile == null ? null : Image.file(avatarFile!)));
+    final LocalStorage storage = LocalStorage('data');
+
+    storage.ready.then((value) async {
+      List<dynamic> contacts = storage.getItem('contacts');
+      contacts.add({
+        'name': ctrlName.text,
+        'email': ctrlEmail.text,
+        'mobile': ctrlMobileNo.text,
+        'avatar': avatarFile == null
+            ? null
+            : base64Encode(avatarFile!.readAsBytesSync())
+      });
+
+      await storage.setItem('contacts', contacts);
+    });
+
     Navigator.pop(context);
   }
 }
