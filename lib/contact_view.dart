@@ -9,7 +9,7 @@ class ContactView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${contact.name} profile"),
+        title: Text("${contact.name} contacts"),
       ),
       body: Padding(
           padding: const EdgeInsets.all(20),
