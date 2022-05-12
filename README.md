@@ -1,16 +1,13 @@
-# contact_list
+# Contact List
 
-A new Flutter project.
+Simple contact list with flutter.
 
-## Getting Started
+List of contacts screen (Light and Dark mode)<br>
+![alt text](https://github.com/mr-cubes/contact-list/blob/8cf293d2694e81dfbc6f4cb0abaa6bad2626c3f9/screenshots/main1.png)
+![alt text](https://github.com/mr-cubes/contact-list/blob/8cf293d2694e81dfbc6f4cb0abaa6bad2626c3f9/screenshots/main1.png)
+Add contact screen
+![alt text](https://github.com/mr-cubes/contact-list/blob/8cf293d2694e81dfbc6f4cb0abaa6bad2626c3f9/screenshots/add.png)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Individual contact view
+![alt text](https://github.com/mr-cubes/contact-list/blob/8cf293d2694e81dfbc6f4cb0abaa6bad2626c3f9/screenshots/view1.png)
+![alt text](https://github.com/mr-cubes/contact-list/blob/8cf293d2694e81dfbc6f4cb0abaa6bad2626c3f9/screenshots/view2.png)
